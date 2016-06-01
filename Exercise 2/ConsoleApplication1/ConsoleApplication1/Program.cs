@@ -12,8 +12,8 @@ namespace ConsoleApplication1
         {
             MusicLibraryVisitor library = new MusicLibraryVisitor();
 
-            Jazz jazz = new Jazz();
-            HeavyMetal heavyMetal = new HeavyMetal();
+            ISong jazz = new Jazz();
+            ISong heavyMetal = new HeavyMetal();
 
             jazz.Visit(library);
             jazz.Visit(library);

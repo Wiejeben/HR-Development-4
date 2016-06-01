@@ -11,7 +11,7 @@ namespace ConsoleApplication1
         static void Main(string[] args)
         {
             NumberVisitor visitor = new NumberVisitor();
-            MyInt myInt = new MyInt();
+            INumber myInt = new MyInt();
 
             myInt.Visit(visitor);
 
