@@ -39,8 +39,8 @@ namespace ConsoleApplication1
 
     interface IMusicLibraryVisitor
     {
-        void OnHeavyMetal(HeavyMetal input);
-        void OnJazz(Jazz input);
+        void OnHeavyMetal(HeavyMetal song);
+        void OnJazz(Jazz song);
     }
 
     class MusicLibraryVisitor : IMusicLibraryVisitor
@@ -48,14 +48,14 @@ namespace ConsoleApplication1
         public readonly List<HeavyMetal> HeavyMetal = new List<HeavyMetal>();
         public readonly List<Jazz> Jazz = new List<Jazz>();
 
-        public void OnHeavyMetal(HeavyMetal input)
+        public void OnHeavyMetal(HeavyMetal song)
         {
-            this.HeavyMetal.Add(input);
+            this.HeavyMetal.Add(song);
         }
 
-        public void OnJazz(Jazz input)
+        public void OnJazz(Jazz song)
         {
-            this.Jazz.Add(input);
+            this.Jazz.Add(song);
         }
     }
 
