@@ -6,17 +6,20 @@ using System.Windows.Forms;
 
 namespace Practical
 {
-    static class Program
+    class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            // Create Windows Form
+            var winForm = new Form1();
+            winForm.Show();
+
+            // Convert to MonoGame
+            WinFormToMonoGame monoForm = new WinFormToMonoGame(winForm);
+            monoForm.Show();
         }
     }
 }
