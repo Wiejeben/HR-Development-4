@@ -14,13 +14,11 @@ namespace Practical
     {
         private Form WinForm;
         private MonoForm MonoForm;
-        private List<GUIElement> controls;
-        private GUIElementsFactory controlFactories;
 
         public WinFormToMonoGame(Form winForm)
         {
             this.WinForm = winForm;
-            this.MonoForm = new MonoForm(this.WinForm, onDraw);
+            this.MonoForm = new MonoForm(this.WinForm);
 
             // Transfer WinForm properties to MonoForm
             this.MonoForm.Title = this.WinForm.Name;
@@ -32,14 +30,6 @@ namespace Practical
         public void Show()
         {
             this.MonoForm.Run();
-        }
-
-        public void onDraw(SpriteBatch spriteBatch)
-        {
-            //foreach (var control in this.controls)
-            //{
-            //    contro
-            //}
         }
     }
 }

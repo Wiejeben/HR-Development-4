@@ -14,7 +14,6 @@ namespace Practical
     class MonoForm : Game
     {
         private readonly GraphicsDeviceManager graphics;
-        private readonly Action<SpriteBatch> onDraw;
         private SpriteBatch spriteBatch;
         private string title = string.Empty;
         private Size size;
@@ -75,11 +74,11 @@ namespace Practical
             this.backColor = new Microsoft.Xna.Framework.Color(color.R, color.G, color.B, color.A);
         }
 
-        public MonoForm(Form WinForm, Action<SpriteBatch> onDraw) : base()
+        public MonoForm(Form WinForm) : base()
         {
-            this.onDraw = onDraw;
             this.graphics = new GraphicsDeviceManager(this);
             this.IsMouseVisible = true;
+            Content.RootDirectory = "Content";
 
             // Generate list with elements
             List<ElementType> elements = new List<ElementType>();
@@ -97,6 +96,7 @@ namespace Practical
                     ));
                 }
 
+                // TODO: Implement button
                 //if (control is System.Windows.Forms.Button)
                 //{
                 //    elements.Add(new ButtonType(
@@ -134,20 +134,25 @@ namespace Practical
             base.LoadContent();
         }
 
-        protected override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-        }
-
         protected override void Draw(GameTime gameTime)
         {
             // Overwrite with background color
             GraphicsDevice.Clear(this.backColor);
 
-            //spriteBatch.Begin();
-            //spriteBatch.End();
+            // Draw controls
+            spriteBatch.Begin();
+            this.onDraw(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public void onDraw(SpriteBatch spriteBatch)
+        {
+            //foreach (var control in this.controls)
+            //{
+            //    contro
+            //}
         }
     }
 }
