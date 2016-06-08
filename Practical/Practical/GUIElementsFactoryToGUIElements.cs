@@ -9,23 +9,40 @@ namespace Practical
 {
     class GUIElementsFactoryToGUIElements : Iterator<GUIElement>
     {
-        private List<Option<GUIElement>> factory;
+        private List<Option<GUIElementFactory>> factory = new List<Option<GUIElementFactory>>();
         private int index;
-        private Option<GUIElementsFactory> currentFactory;
+        private Option<GUIElementFactory> currentFactory;
 
         public GUIElementsFactoryToGUIElements(GUIElementsFactory ef)
         {
+            this.Reset();
 
+            Option<GUIElementFactory> elementFactory = ef.GetNext();
+
+            while (elementFactory.isSome())
+            {
+                this.factory.Add(new Some<GUIElementFactory>(elementFactory.Visit(() => null, (el) => el)));
+                elementFactory = ef.GetNext();
+            }
         }
 
         public Option<GUIElement> GetNext()
         {
-            throw new NotImplementedException();
+            if (this.factory.Count() <= this.index) return new None<GUIElement>();
+
+            this.currentFactory = this.factory.ElementAt(this.index++);
+            
+            if (currentFactory.isSome())
+            {
+                return new Some<GUIElement>(currentFactory.Visit(() => null, (el) => el.Load()));
+            }
+            
+            return new None<GUIElement>();
         }
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            this.index = 0;
         }
     }
 }

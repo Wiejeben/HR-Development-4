@@ -18,7 +18,11 @@ namespace Practical
 
         public GUIElement Load()
         {
-            throw new NotImplementedException();
+            return type.Visit(
+                (emptyButton, label, action) => new Button(emptyButton, label, action),
+                (position, texture) => new EmptyButton(position, texture),
+                (position, label, font) => new Label(position, label, font)
+            );
         }
     }
 }

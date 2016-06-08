@@ -1,9 +1,11 @@
-﻿using Practical.Interfaces;
+﻿using Microsoft.Xna.Framework;
+using Practical.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Practical
 {
@@ -18,7 +20,7 @@ namespace Practical
 
         public GUIElementsFactory Load()
         {
-            throw new NotImplementedException();
+            return new GUIElementsFactory(elements);
         }
     }
 }

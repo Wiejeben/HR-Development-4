@@ -7,24 +7,27 @@ using System.Threading.Tasks;
 
 namespace Practical
 {
-    class GUIElementsFactory : Iterator<GUIElementsFactory>
+    class GUIElementsFactory : Iterator<GUIElementFactory>
     {
-        private List<ElementType> elements;
+        private List<ElementType> elements = new List<ElementType>();
         private int index;
 
         public GUIElementsFactory(List<ElementType> elements)
         {
+            this.Reset();
             this.elements = elements;
         }
 
-        public Option<GUIElementsFactory> GetNext()
+        public Option<GUIElementFactory> GetNext()
         {
-            throw new NotImplementedException();
+            if (this.elements.Count() <= this.index) return new None<GUIElementFactory>();
+
+            return new Some<GUIElementFactory>(new GUIElementFactory(this.elements.ElementAt(this.index++)));
         }
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            this.index = 0;
         }
     }
 }

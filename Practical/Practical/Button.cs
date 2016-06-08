@@ -13,7 +13,7 @@ namespace Practical
         private Label label;
         private Action action;
 
-        public Button(EmptyButton button, Label label, Action action, Vector2 p) : base(p)
+        public Button(EmptyButton button, Label label, Action action) : base(button.position)
         {
             this.button = button;
             this.label = label;

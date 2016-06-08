@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Practical.Interfaces;
+using Microsoft.Xna.Framework;
 
 namespace Practical
 {
@@ -13,11 +14,13 @@ namespace Practical
     {
         private Form WinForm;
         private MonoForm MonoForm;
+        private List<GUIElement> controls;
+        private GUIElementsFactory controlFactories;
 
         public WinFormToMonoGame(Form winForm)
         {
             this.WinForm = winForm;
-            this.MonoForm = new MonoForm(onDraw);
+            this.MonoForm = new MonoForm(this.WinForm, onDraw);
 
             // Transfer WinForm properties to MonoForm
             this.MonoForm.Title = this.WinForm.Name;
@@ -33,8 +36,10 @@ namespace Practical
 
         public void onDraw(SpriteBatch spriteBatch)
         {
-            Console.WriteLine("draw");
-            // Display each ElementType
+            //foreach (var control in this.controls)
+            //{
+            //    contro
+            //}
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Practical.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Practical
 {
-    class ButtonType
+    class ButtonType : ElementType
     {
         private Vector2 position;
         private SpriteFont font;
@@ -31,6 +32,11 @@ namespace Practical
             this.text = text;
             this.font = font;
             this.action = action;
+        }
+
+        public GUIElement Visit(Func<EmptyButton, Label, Action, GUIElement> OnButton, Func<Vector2, Texture2D, GUIElement> OnEmptyButton, Func<Vector2, string, SpriteFont, GUIElement> OnLabel)
+        {
+            return OnButton(new EmptyButton(this.position, this.texture), new Label(this.position, this.text, this.font), this.action);
         }
     }
 }
