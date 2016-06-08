@@ -22,6 +22,8 @@ namespace Practical
         private List<GUIElement> controls = new List<GUIElement>();
         private GUIElementsFactory controlFactories;
 
+        public event EventHandler SizeChanged;
+
         public string Title
         {
             get
@@ -51,6 +53,8 @@ namespace Practical
                 this.graphics.PreferredBackBufferWidth = value.Width;
                 this.graphics.PreferredBackBufferHeight = value.Height;
                 this.graphics.ApplyChanges();
+
+                this.SizeChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -78,6 +82,8 @@ namespace Practical
         {
             this.graphics = new GraphicsDeviceManager(this);
             this.IsMouseVisible = true;
+            this.Window.AllowUserResizing = false;
+            this.Window.ClientSizeChanged += Window_ClientSizeChanged;
             Content.RootDirectory = "Content";
 
             // Generate list with elements
@@ -124,7 +130,14 @@ namespace Practical
                 this.controls.Add(currentAdapter.Visit(() => null, (el) => el));
                 currentAdapter = adapter.GetNext();
             }
-            Console.WriteLine("test");
+        }
+
+        private void Window_ClientSizeChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine(this.graphics.GraphicsDevice.PresentationParameters.Bounds);
+            // TODO: Get current window width
+            //if (this.graphics.GraphicsDevice.Viewport.Width != this.Size.Width || this.graphics.GraphicsDevice.Viewport.Height != this.Size.Height)
+            //    this.Size = new Size(graphics.GraphicsDevice.Viewport.Width, this.graphics.PreferredBackBufferHeight);
         }
 
         protected override void LoadContent()

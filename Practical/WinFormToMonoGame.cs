@@ -15,10 +15,17 @@ namespace Practical
         private Form WinForm;
         private MonoForm MonoForm;
 
+        public event EventHandler SizeChanged;
+        bool changeSizeFromWinForm = false;
+
         public WinFormToMonoGame(Form winForm)
         {
             this.WinForm = winForm;
             this.MonoForm = new MonoForm(this.WinForm);
+
+            // Apply event handlers
+            this.MonoForm.SizeChanged += this.MonoForm_SizeChanged;
+            this.WinForm.ClientSizeChanged += this.WinForm_SizeChanged;
 
             // Transfer WinForm properties to MonoForm
             this.MonoForm.Title = this.WinForm.Name;
@@ -30,6 +37,22 @@ namespace Practical
         public void Show()
         {
             this.MonoForm.Run();
+        }
+
+        private void WinForm_SizeChanged(object sender, EventArgs e)
+        {
+            // prevent double trigger
+            changeSizeFromWinForm = true;
+            this.MonoForm.Size = this.WinForm.ClientSize;
+        }
+
+        private void MonoForm_SizeChanged(object sender, EventArgs e)
+        {
+            if (!changeSizeFromWinForm)
+                this.WinForm.ClientSize = this.MonoForm.Size;
+            changeSizeFromWinForm = false;
+
+            SizeChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }
