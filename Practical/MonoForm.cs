@@ -84,7 +84,7 @@ namespace Practical
             this.WinForm = WinForm;
             this.graphics = new GraphicsDeviceManager(this);
             this.IsMouseVisible = true;
-            this.Window.AllowUserResizing = false;
+            this.Window.AllowUserResizing = true;
             Content.RootDirectory = "Content";
 
             // Set event listener
@@ -117,15 +117,15 @@ namespace Practical
                 }
 
                 // TODO: Implement button
-                //if (control is System.Windows.Forms.Button)
-                //{
-                //    elements.Add(new ButtonType(
-                //        position,
-                //        new Texture2D(GraphicsDevice, 1, 1),
-                //        control.Text,
-                //        Fonts.Ariel
-                //    ));
-                //}
+                if (control is System.Windows.Forms.Button)
+                {
+                    elements.Add(new ButtonType(
+                        position,
+                        new Texture2D(this.GraphicsDevice, control.Width, control.Height),
+                        control.Text,
+                        Fonts.Arial
+                    ));
+                }
             }
 
             FormLoader formLoader = new FormLoader(elements);
@@ -140,10 +140,10 @@ namespace Practical
                 currentAdapter = adapter.GetNext();
             }
 
-            //foreach (var control in this.controls)
-            //{
-            //    //control.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
-            //}
+            foreach (var control in this.controls)
+            {
+                control.Update(gameTime);
+            }
             base.Update(gameTime);
         }
 
@@ -160,15 +160,14 @@ namespace Practical
             {
                 control.Draw(spriteBatch);
             }
+
             spriteBatch.End();
         }
 
         private void Window_ClientSizeChanged(object sender, EventArgs e)
         {
-            //Console.WriteLine(this.graphics.GraphicsDevice.PresentationParameters.Bounds);
-            // TODO: Get current window width
-            //if (this.graphics.GraphicsDevice.Viewport.Width != this.Size.Width || this.graphics.GraphicsDevice.Viewport.Height != this.Size.Height)
-            //    this.Size = new Size(graphics.GraphicsDevice.Viewport.Width, this.graphics.PreferredBackBufferHeight);
+            if (this.Window.ClientBounds.Width != this.Size.Width || this.Window.ClientBounds.Height != this.Size.Height)
+                this.Size = new Size(this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
         }
     }
 }

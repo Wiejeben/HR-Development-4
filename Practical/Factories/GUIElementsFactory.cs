@@ -14,8 +14,8 @@ namespace Practical
 
         public GUIElementsFactory(List<ElementType> elements)
         {
-            this.Reset();
             this.elements = elements;
+            this.Reset();
         }
 
         public Option<GUIElementFactory> GetNext()

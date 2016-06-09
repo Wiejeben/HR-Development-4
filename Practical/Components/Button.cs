@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Practical
 {
@@ -18,6 +19,13 @@ namespace Practical
             this.button = button;
             this.label = label;
             this.action = action;
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            this.button.Draw(spriteBatch);
+            this.label.Draw(spriteBatch);
+            base.Draw(spriteBatch);
         }
     }
 }

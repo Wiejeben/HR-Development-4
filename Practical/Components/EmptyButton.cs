@@ -17,16 +17,24 @@ namespace Practical
         private float count_down;
         private float max_count_down;
         public Vector2 position;
+        private Color color;
 
         public EmptyButton(Vector2 p, Texture2D t) : base(p)
         {
             this.texture = t;
             this.position = p;
+            this.color = new Color(235, 235, 235);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            // TODO: Output sprite with rectangle
+            //spriteBatch.Draw(texture, this.position, Color.DarkBlue);
+
+            Color[] data = new Color[this.texture.Width * this.texture.Height];
+            for (int i = 0; i < data.Length; ++i) data[i] = this.color;
+            this.texture.SetData(data);
+            
+            spriteBatch.Draw(this.texture, this.position, this.color);
             base.Draw(spriteBatch);
         }
 
