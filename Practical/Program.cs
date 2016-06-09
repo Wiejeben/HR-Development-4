@@ -14,7 +14,7 @@ namespace Practical
             Application.SetCompatibleTextRenderingDefault(false);
 
             // Create Windows Form
-            var winForm = new Form1();
+            Form1 winForm = new Form1();
             winForm.Show();
 
             // Convert to MonoGame

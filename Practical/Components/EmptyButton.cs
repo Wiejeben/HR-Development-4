@@ -24,5 +24,11 @@ namespace Practical
             this.position = p;
         }
 
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            // TODO: Output sprite with rectangle
+            base.Draw(spriteBatch);
+        }
+
     }
 }

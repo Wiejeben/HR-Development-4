@@ -21,7 +21,7 @@ namespace Practical
 
             while (elementFactory.isSome())
             {
-                this.factory.Add(new Some<GUIElementFactory>(elementFactory.Visit(() => null, (el) => el)));
+                this.factory.Add(elementFactory);
                 elementFactory = ef.GetNext();
             }
         }
@@ -31,13 +31,11 @@ namespace Practical
             if (this.factory.Count() <= this.index) return new None<GUIElement>();
 
             this.currentFactory = this.factory.ElementAt(this.index++);
-            
-            if (currentFactory.isSome())
-            {
-                return new Some<GUIElement>(currentFactory.Visit(() => null, (el) => el.Load()));
-            }
-            
-            return new None<GUIElement>();
+
+            return currentFactory.Visit<Option<GUIElement>>(
+                () => new None<GUIElement>(),
+                (e) => new Some<GUIElement>(e.Load())
+            );
         }
 
         public void Reset()

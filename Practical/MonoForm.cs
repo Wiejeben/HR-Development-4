@@ -85,8 +85,10 @@ namespace Practical
             this.graphics = new GraphicsDeviceManager(this);
             this.IsMouseVisible = true;
             this.Window.AllowUserResizing = false;
-            this.Window.ClientSizeChanged += Window_ClientSizeChanged;
             Content.RootDirectory = "Content";
+
+            // Set event listener
+            this.Window.ClientSizeChanged += Window_ClientSizeChanged;
         }
 
         protected override void LoadContent()
