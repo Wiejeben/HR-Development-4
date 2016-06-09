@@ -50,9 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\Button.cs" />
+    <Compile Include="Components\Button.cs" />
     <Compile Include="Visitors\ButtonType.cs" />
-    <Compile Include="Controls\EmptyButton.cs" />
+    <Compile Include="Components\EmptyButton.cs" />
     <Compile Include="Visitors\EmptyButtonType.cs" />
     <Compile Include="Fonts.cs" />
     <Compile Include="Form1.cs">
@@ -62,7 +62,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="FormLoader.cs" />
-    <Compile Include="Controls\GUIElement.cs" />
+    <Compile Include="Components\GUIElement.cs" />
     <Compile Include="Factories\GUIElementFactory.cs" />
     <Compile Include="Factories\GUIElementsFactory.cs" />
     <Compile Include="GUIElementsFactoryToGUIElements.cs" />
@@ -70,7 +70,7 @@
     <Compile Include="Interfaces\ElementType.cs" />
     <Compile Include="Interfaces\Iterator.cs" />
     <Compile Include="Interfaces\Option.cs" />
-    <Compile Include="Controls\Label.cs" />
+    <Compile Include="Components\Label.cs" />
     <Compile Include="Visitors\LabelType.cs" />
     <Compile Include="MonoForm.cs" />
     <Compile Include="Visitors\None.cs" />

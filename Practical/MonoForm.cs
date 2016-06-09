@@ -14,12 +14,13 @@ namespace Practical
     class MonoForm : Game
     {
         private readonly GraphicsDeviceManager graphics;
+        private readonly Form WinForm;
         private SpriteBatch spriteBatch;
         private string title = string.Empty;
         private Size size;
         private Microsoft.Xna.Framework.Color backColor;
         private Icon windowIcon;
-        private List<GUIElement> controls = new List<GUIElement>();
+        private List<GUIElement> controls;
         private GUIElementsFactory controlFactories;
 
         public event EventHandler SizeChanged;
@@ -80,16 +81,27 @@ namespace Practical
 
         public MonoForm(Form WinForm) : base()
         {
+            this.WinForm = WinForm;
             this.graphics = new GraphicsDeviceManager(this);
             this.IsMouseVisible = true;
             this.Window.AllowUserResizing = false;
             this.Window.ClientSizeChanged += Window_ClientSizeChanged;
             Content.RootDirectory = "Content";
+        }
 
-            // Generate list with elements
+        protected override void LoadContent()
+        {
+            this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
+            base.LoadContent();
+            Fonts.Arial = Content.Load<SpriteFont>("Arial");
+        }
+
+        protected override void Update(GameTime gameTime)
+        {
             List<ElementType> elements = new List<ElementType>();
+            this.controls = new List<GUIElement>();
 
-            foreach (Control control in WinForm.Controls)
+            foreach (Control control in this.WinForm.Controls)
             {
                 Vector2 position = new Vector2(control.Location.X, control.Location.Y);
 
@@ -114,37 +126,23 @@ namespace Practical
                 //}
             }
 
-            // Create new form
             FormLoader formLoader = new FormLoader(elements);
-
-            // Implement Type elements
             this.controlFactories = formLoader.Load();
-
-            // Convert to GUIElement
             GUIElementsFactoryToGUIElements adapter = new GUIElementsFactoryToGUIElements(this.controlFactories);
 
             Option<GUIElement> currentAdapter = adapter.GetNext();
 
-            while(currentAdapter.isSome())
+            while (currentAdapter.isSome())
             {
                 this.controls.Add(currentAdapter.Visit(() => null, (el) => el));
                 currentAdapter = adapter.GetNext();
             }
-        }
 
-        private void Window_ClientSizeChanged(object sender, EventArgs e)
-        {
-            Console.WriteLine(this.graphics.GraphicsDevice.PresentationParameters.Bounds);
-            // TODO: Get current window width
-            //if (this.graphics.GraphicsDevice.Viewport.Width != this.Size.Width || this.graphics.GraphicsDevice.Viewport.Height != this.Size.Height)
-            //    this.Size = new Size(graphics.GraphicsDevice.Viewport.Width, this.graphics.PreferredBackBufferHeight);
-        }
-
-        protected override void LoadContent()
-        {
-            this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
-            Fonts.Arial = Content.Load<SpriteFont>("Arial");
-            base.LoadContent();
+            //foreach (var control in this.controls)
+            //{
+            //    //control.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
+            //}
+            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -152,20 +150,23 @@ namespace Practical
             // Overwrite with background color
             GraphicsDevice.Clear(this.backColor);
 
+            base.Draw(gameTime);
+
             // Draw controls
             spriteBatch.Begin();
-            this.onDraw(spriteBatch);
+            foreach (var control in this.controls)
+            {
+                control.Draw(spriteBatch);
+            }
             spriteBatch.End();
-
-            base.Draw(gameTime);
         }
 
-        public void onDraw(SpriteBatch spriteBatch)
+        private void Window_ClientSizeChanged(object sender, EventArgs e)
         {
-            //foreach (var control in this.controls)
-            //{
-            //    contro
-            //}
+            //Console.WriteLine(this.graphics.GraphicsDevice.PresentationParameters.Bounds);
+            // TODO: Get current window width
+            //if (this.graphics.GraphicsDevice.Viewport.Width != this.Size.Width || this.graphics.GraphicsDevice.Viewport.Height != this.Size.Height)
+            //    this.Size = new Size(graphics.GraphicsDevice.Viewport.Width, this.graphics.PreferredBackBufferHeight);
         }
     }
 }
