@@ -42,13 +42,13 @@ namespace Practical
         private void WinForm_SizeChanged(object sender, EventArgs e)
         {
             // prevent double trigger
-            changeSizeFromWinForm = true;
+            this.changeSizeFromWinForm = true;
             this.MonoForm.Size = this.WinForm.ClientSize;
         }
 
         private void MonoForm_SizeChanged(object sender, EventArgs e)
         {
-            if (!changeSizeFromWinForm)
+            if (!this.changeSizeFromWinForm)
                 this.WinForm.ClientSize = this.MonoForm.Size;
             changeSizeFromWinForm = false;
 
