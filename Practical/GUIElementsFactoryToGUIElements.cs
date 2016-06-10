@@ -16,12 +16,12 @@ namespace Practical
         {
             this.Reset();
 
-            Option<GUIElementFactory> elementFactory = elementsFactory.GetNext();
+            Option<GUIElementFactory> currentFactory = elementsFactory.GetNext();
 
-            while (elementFactory.IsSome())
+            while (currentFactory.IsSome())
             {
-                this.Factory.Add(elementFactory);
-                elementFactory = elementsFactory.GetNext();
+                this.Factory.Add(currentFactory);
+                currentFactory = elementsFactory.GetNext();
             }
         }
 
