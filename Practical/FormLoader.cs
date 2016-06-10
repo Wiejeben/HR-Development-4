@@ -11,16 +11,16 @@ namespace Practical
 {
     class FormLoader
     {
-        private List<ElementType> elements;
+        private List<ElementType> Elements;
 
         public FormLoader(List<ElementType> elements)
         {
-            this.elements = elements;
+            this.Elements = elements;
         }
 
         public GUIElementsFactory Load()
         {
-            return new GUIElementsFactory(elements);
+            return new GUIElementsFactory(this.Elements);
         }
     }
 }

@@ -10,6 +10,10 @@ namespace Practical.Interfaces
 {
     interface ElementType
     {
-        GUIElement Visit(Func<EmptyButton, Label, Action, GUIElement> OnButton, Func<Vector2, Texture2D, GUIElement> OnEmptyButton, Func<Vector2, string, SpriteFont, GUIElement> OnLabel);
+        GUIElement Visit(
+            Func<EmptyButton, Label, Action, GUIElement> onButton,
+            Func<Vector2, Texture2D, GUIElement> onEmptyButton,
+            Func<Vector2, string, SpriteFont, GUIElement> onLabel
+        );
     }
 }

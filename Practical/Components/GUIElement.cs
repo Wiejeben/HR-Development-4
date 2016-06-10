@@ -10,11 +10,11 @@ namespace Practical
 {
     class GUIElement : Interfaces.Component
     {
-        protected Vector2 position;
+        protected Vector2 Position;
 
-        public GUIElement(Vector2 p)
+        public GUIElement(Vector2 position)
         {
-            this.position = p;
+            this.Position = position;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

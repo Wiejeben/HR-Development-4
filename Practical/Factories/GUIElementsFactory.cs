@@ -9,25 +9,26 @@ namespace Practical
 {
     class GUIElementsFactory : Iterator<GUIElementFactory>
     {
-        private List<ElementType> elements = new List<ElementType>();
-        private int index;
+        private List<ElementType> Elements;
+        private int Index;
 
         public GUIElementsFactory(List<ElementType> elements)
         {
-            this.elements = elements;
+            this.Elements = elements;
             this.Reset();
         }
 
         public Option<GUIElementFactory> GetNext()
         {
-            if (this.elements.Count() <= this.index) return new None<GUIElementFactory>();
+            if (this.Elements.Count() <= this.Index) return new None<GUIElementFactory>();
 
-            return new Some<GUIElementFactory>(new GUIElementFactory(this.elements.ElementAt(this.index++)));
+            GUIElementFactory factory = new GUIElementFactory(this.Elements[this.Index++]);
+            return new Some<GUIElementFactory>(factory);
         }
 
         public void Reset()
         {
-            this.index = 0;
+            this.Index = 0;
         }
     }
 }

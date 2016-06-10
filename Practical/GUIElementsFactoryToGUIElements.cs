@@ -9,38 +9,37 @@ namespace Practical
 {
     class GUIElementsFactoryToGUIElements : Iterator<GUIElement>
     {
-        private List<Option<GUIElementFactory>> factory = new List<Option<GUIElementFactory>>();
-        private int index;
-        private Option<GUIElementFactory> currentFactory;
+        private List<Option<GUIElementFactory>> Factory = new List<Option<GUIElementFactory>>();
+        private int Index;
 
-        public GUIElementsFactoryToGUIElements(GUIElementsFactory ef)
+        public GUIElementsFactoryToGUIElements(GUIElementsFactory elementsFactory)
         {
             this.Reset();
 
-            Option<GUIElementFactory> elementFactory = ef.GetNext();
+            Option<GUIElementFactory> elementFactory = elementsFactory.GetNext();
 
-            while (elementFactory.isSome())
+            while (elementFactory.IsSome())
             {
-                this.factory.Add(elementFactory);
-                elementFactory = ef.GetNext();
+                this.Factory.Add(elementFactory);
+                elementFactory = elementsFactory.GetNext();
             }
         }
 
         public Option<GUIElement> GetNext()
         {
-            if (this.factory.Count() <= this.index) return new None<GUIElement>();
+            if (this.Factory.Count() <= this.Index) return new None<GUIElement>();
 
-            this.currentFactory = this.factory.ElementAt(this.index++);
+            Option<GUIElementFactory> currentFactory = this.Factory[this.Index++];
 
             return currentFactory.Visit<Option<GUIElement>>(
-                () => new None<GUIElement>(),
-                (e) => new Some<GUIElement>(e.Load())
+                ()          => new None<GUIElement>(),
+                (elememt)   => new Some<GUIElement>(elememt.Load())
             );
         }
 
         public void Reset()
         {
-            this.index = 0;
+            this.Index = 0;
         }
     }
 }

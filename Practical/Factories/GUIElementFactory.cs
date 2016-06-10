@@ -9,19 +9,19 @@ namespace Practical
 {
     class GUIElementFactory
     {
-        private ElementType type;
+        private ElementType Type;
         
-        public GUIElementFactory(ElementType t)
+        public GUIElementFactory(ElementType type)
         {
-            this.type = t;
+            this.Type = type;
         }
 
         public GUIElement Load()
         {
-            return type.Visit(
-                (emptyButton, label, action) => new Button(emptyButton, label, action),
-                (position, texture) => new EmptyButton(position, texture),
-                (position, label, font) => new Label(position, label, font)
+            return Type.Visit(
+                (emptyButton, label, action)    => new Button(emptyButton, label, action),
+                (position, texture)             => new EmptyButton(position, texture),
+                (position, label, font)         => new Label(position, label, font)
             );
         }
     }

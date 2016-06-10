@@ -11,18 +11,18 @@ namespace Practical
 {
     class EmptyButtonType : ElementType
     {
-        private Vector2 p;
-        private Texture2D t;
+        private Vector2 Position;
+        private Texture2D Texture;
 
         public EmptyButtonType(Vector2 position, Texture2D texture)
         {
-            this.p = position;
-            this.t = texture;
+            this.Position = position;
+            this.Texture = texture;
         }
 
-        public GUIElement Visit(Func<EmptyButton, Label, Action, GUIElement> OnButton, Func<Vector2, Texture2D, GUIElement> OnEmptyButton, Func<Vector2, string, SpriteFont, GUIElement> OnLabel)
+        public GUIElement Visit(Func<EmptyButton, Label, Action, GUIElement> onButton, Func<Vector2, Texture2D, GUIElement> onEmptyButton, Func<Vector2, string, SpriteFont, GUIElement> onLabel)
         {
-            return OnEmptyButton(p, t);
+            return onEmptyButton(this.Position, this.Texture);
         }
     }
 }

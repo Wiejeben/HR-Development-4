@@ -16,7 +16,7 @@ namespace Practical
         private MonoForm MonoForm;
 
         public event EventHandler SizeChanged;
-        bool changeSizeFromWinForm = false;
+        bool ChangeSizeFromWinForm = false;
 
         public WinFormToMonoGame(Form winForm)
         {
@@ -42,15 +42,15 @@ namespace Practical
         private void WinForm_SizeChanged(object sender, EventArgs e)
         {
             // prevent double trigger
-            this.changeSizeFromWinForm = true;
+            this.ChangeSizeFromWinForm = true;
             this.MonoForm.Size = this.WinForm.ClientSize;
         }
 
         private void MonoForm_SizeChanged(object sender, EventArgs e)
         {
-            if (!this.changeSizeFromWinForm)
+            if (!this.ChangeSizeFromWinForm)
                 this.WinForm.ClientSize = this.MonoForm.Size;
-            changeSizeFromWinForm = false;
+            ChangeSizeFromWinForm = false;
 
             SizeChanged?.Invoke(this, EventArgs.Empty);
         }

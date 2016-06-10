@@ -10,18 +10,18 @@ namespace Practical
 {
     class Label : GUIElement
     {
-        private string text;
-        private SpriteFont font;
+        private string Text;
+        private SpriteFont Font;
 
-        public Label(Vector2 p, string t, SpriteFont f) : base(p)
+        public Label(Vector2 position, string text, SpriteFont font) : base(position)
         {
-            this.text = t;
-            this.font = f;
+            this.Text = text;
+            this.Font = font;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(this.font, this.text, this.position, Color.Black, 0f, Vector2.Zero, 0.65f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(this.Font, this.Text, this.Position, Color.Black, 0f, Vector2.Zero, 0.65f, SpriteEffects.None, 0f);
             base.Draw(spriteBatch);
         }
     }

@@ -11,32 +11,32 @@ namespace Practical
 {
     class ButtonType : ElementType
     {
-        private Vector2 position;
-        private SpriteFont font;
-        private Texture2D texture;
-        private string text;
-        private Action action;
+        private Vector2 Position;
+        private SpriteFont Font;
+        private Texture2D Texture;
+        private string Text;
+        private Action Action;
 
         public ButtonType(Vector2 position, Texture2D texture, string text, SpriteFont font)
         {
-            this.position = position;
-            this.texture = texture;
-            this.text = text;
-            this.font = font;
+            this.Position = position;
+            this.Texture = texture;
+            this.Text = text;
+            this.Font = font;
         }
 
         public ButtonType(Vector2 position, Texture2D texture, string text, SpriteFont font, Action action)
         {
-            this.position = position;
-            this.texture = texture;
-            this.text = text;
-            this.font = font;
-            this.action = action;
+            this.Position = position;
+            this.Texture = texture;
+            this.Text = text;
+            this.Font = font;
+            this.Action = action;
         }
 
-        public GUIElement Visit(Func<EmptyButton, Label, Action, GUIElement> OnButton, Func<Vector2, Texture2D, GUIElement> OnEmptyButton, Func<Vector2, string, SpriteFont, GUIElement> OnLabel)
+        public GUIElement Visit(Func<EmptyButton, Label, Action, GUIElement> onButton, Func<Vector2, Texture2D, GUIElement> onEmptyButton, Func<Vector2, string, SpriteFont, GUIElement> onLabel)
         {
-            return OnButton(new EmptyButton(this.position, this.texture), new Label(this.position, this.text, this.font), this.action);
+            return onButton(new EmptyButton(this.Position, this.Texture), new Label(this.Position, this.Text, this.Font), this.Action);
         }
     }
 }

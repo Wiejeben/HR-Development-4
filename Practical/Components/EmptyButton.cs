@@ -10,31 +10,31 @@ namespace Practical
 {
     class EmptyButton : GUIElement
     {
-        private Texture2D texture;
-        private Vector2 scale;
-        private bool is_blocked;
-        private bool waiting_for_up;
-        private float count_down;
-        private float max_count_down;
-        public Vector2 position;
-        private Color color;
+        private Texture2D Texture;
+        private Vector2 Scale;
+        private bool IsBlocked;
+        private bool WaitingForUp;
+        private float CountDown;
+        private float MaxCountDown;
+        public Vector2 Position;
+        private Color Color;
 
-        public EmptyButton(Vector2 p, Texture2D t) : base(p)
+        public EmptyButton(Vector2 position, Texture2D texture) : base(position)
         {
-            this.texture = t;
-            this.position = p;
-            this.color = new Color(235, 235, 235);
+            this.Texture = texture;
+            this.Position = position;
+            this.Color = new Color(235, 235, 235);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             //spriteBatch.Draw(texture, this.position, Color.DarkBlue);
 
-            Color[] data = new Color[this.texture.Width * this.texture.Height];
-            for (int i = 0; i < data.Length; ++i) data[i] = this.color;
-            this.texture.SetData(data);
+            Color[] data = new Color[this.Texture.Width * this.Texture.Height];
+            for (int i = 0; i < data.Length; ++i) data[i] = this.Color;
+            this.Texture.SetData(data);
             
-            spriteBatch.Draw(this.texture, this.position, this.color);
+            spriteBatch.Draw(this.Texture, this.Position, this.Color);
             base.Draw(spriteBatch);
         }
 

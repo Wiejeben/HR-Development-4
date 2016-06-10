@@ -8,19 +8,19 @@ namespace Practical
 {
     class None<T> : Interfaces.Option<T>
     {
-        public bool isNone()
+        public bool IsNone()
         {
             return true;
         }
 
-        public bool isSome()
+        public bool IsSome()
         {
             return false;
         }
 
-        public U Visit<U>(Func<U> OnNone, Func<T, U> OnSome)
+        public U Visit<U>(Func<U> onNone, Func<T, U> onSome)
         {
-            return OnNone();
+            return onNone();
         }
     }
 }

@@ -11,20 +11,20 @@ namespace Practical
 {
     class LabelType : ElementType
     {
-        private Vector2 p;
-        private string t;
-        private SpriteFont f;
+        private Vector2 Position;
+        private string Text;
+        private SpriteFont Font;
 
         public LabelType(Vector2 position, string text, SpriteFont font)
         {
-            this.p = position;
-            this.t = text;
-            this.f = font;
+            this.Position = position;
+            this.Text = text;
+            this.Font = font;
         }
 
-        public GUIElement Visit(Func<EmptyButton, Label, Action, GUIElement> OnButton, Func<Vector2, Texture2D, GUIElement> OnEmptyButton, Func<Vector2, string, SpriteFont, GUIElement> OnLabel)
+        public GUIElement Visit(Func<EmptyButton, Label, Action, GUIElement> onButton, Func<Vector2, Texture2D, GUIElement> onEmptyButton, Func<Vector2, string, SpriteFont, GUIElement> onLabel)
         {
-            return OnLabel(p, t, f);
+            return onLabel(this.Position, this.Text, this.Font);
         }
     }
 }

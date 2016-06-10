@@ -13,15 +13,15 @@ namespace Practical
 {
     class MonoForm : Game
     {
-        private readonly GraphicsDeviceManager graphics;
+        private readonly GraphicsDeviceManager Graphics;
         private readonly Form WinForm;
-        private SpriteBatch spriteBatch;
-        private string title = string.Empty;
-        private Size size;
-        private Microsoft.Xna.Framework.Color backColor;
-        private Icon windowIcon;
-        private List<GUIElement> controls;
-        private GUIElementsFactory controlFactories;
+        private SpriteBatch SpriteBatch;
+        private string _Title = string.Empty;
+        private Size _Size;
+        private Microsoft.Xna.Framework.Color BackColor;
+        private Icon _WindowIcon;
+        private List<GUIElement> Controls;
+        private GUIElementsFactory ControlFactories;
 
         public event EventHandler SizeChanged;
 
@@ -29,11 +29,11 @@ namespace Practical
         {
             get
             {
-                return this.title;
+                return this._Title;
             }
             set
             {
-                this.title = value;
+                this._Title = value;
 
                 // Apply title to window
                 this.Window.Title = value;
@@ -44,16 +44,16 @@ namespace Practical
         {
             get
             {
-                return this.size;
+                return this._Size;
             }
             set
             {
-                this.size = value;
+                this._Size = value;
 
                 // Apply size to window
-                this.graphics.PreferredBackBufferWidth = value.Width;
-                this.graphics.PreferredBackBufferHeight = value.Height;
-                this.graphics.ApplyChanges();
+                this.Graphics.PreferredBackBufferWidth = value.Width;
+                this.Graphics.PreferredBackBufferHeight = value.Height;
+                this.Graphics.ApplyChanges();
 
                 this.SizeChanged?.Invoke(this, EventArgs.Empty);
             }
@@ -63,11 +63,11 @@ namespace Practical
         {
             get
             {
-                return this.windowIcon;
+                return this._WindowIcon;
             }
             set
             {
-                this.windowIcon = value;
+                this._WindowIcon = value;
 
                 // Apply icon to window
                 ((System.Windows.Forms.Form)System.Windows.Forms.Form.FromHandle(this.Window.Handle)).Icon = value;
@@ -76,24 +76,24 @@ namespace Practical
 
         public void setBackColor(System.Drawing.Color color)
         {
-            this.backColor = new Microsoft.Xna.Framework.Color(color.R, color.G, color.B, color.A);
+            this.BackColor = new Microsoft.Xna.Framework.Color(color.R, color.G, color.B, color.A);
         }
 
         public MonoForm(Form WinForm) : base()
         {
             this.WinForm = WinForm;
-            this.graphics = new GraphicsDeviceManager(this);
+            this.Graphics = new GraphicsDeviceManager(this);
             this.IsMouseVisible = true;
             this.Window.AllowUserResizing = true;
-            Content.RootDirectory = "Content";
+            this.Content.RootDirectory = "Content";
 
             // Set event listener
-            this.Window.ClientSizeChanged += Window_ClientSizeChanged;
+            this.Window.ClientSizeChanged += this.Window_ClientSizeChanged;
         }
 
         protected override void LoadContent()
         {
-            this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
+            this.SpriteBatch = new SpriteBatch(this.GraphicsDevice);
             base.LoadContent();
             Fonts.Arial = Content.Load<SpriteFont>("Arial");
         }
@@ -101,7 +101,7 @@ namespace Practical
         protected override void Update(GameTime gameTime)
         {
             List<ElementType> elements = new List<ElementType>();
-            this.controls = new List<GUIElement>();
+            this.Controls = new List<GUIElement>();
 
             foreach (Control control in this.WinForm.Controls)
             {
@@ -129,18 +129,18 @@ namespace Practical
             }
 
             FormLoader formLoader = new FormLoader(elements);
-            this.controlFactories = formLoader.Load();
-            GUIElementsFactoryToGUIElements adapter = new GUIElementsFactoryToGUIElements(this.controlFactories);
+            this.ControlFactories = formLoader.Load();
+            GUIElementsFactoryToGUIElements adapter = new GUIElementsFactoryToGUIElements(this.ControlFactories);
 
             Option<GUIElement> currentAdapter = adapter.GetNext();
 
-            while (currentAdapter.isSome())
+            while (currentAdapter.IsSome())
             {
-                this.controls.Add(currentAdapter.Visit(() => null, (el) => el));
+                this.Controls.Add(currentAdapter.Visit(() => null, (el) => el));
                 currentAdapter = adapter.GetNext();
             }
 
-            foreach (var control in this.controls)
+            foreach (var control in this.Controls)
             {
                 control.Update(gameTime);
             }
@@ -150,18 +150,18 @@ namespace Practical
         protected override void Draw(GameTime gameTime)
         {
             // Overwrite with background color
-            GraphicsDevice.Clear(this.backColor);
+            GraphicsDevice.Clear(this.BackColor);
 
             base.Draw(gameTime);
 
             // Draw controls
-            spriteBatch.Begin();
-            foreach (var control in this.controls)
+            SpriteBatch.Begin();
+            foreach (var control in this.Controls)
             {
-                control.Draw(spriteBatch);
+                control.Draw(SpriteBatch);
             }
 
-            spriteBatch.End();
+            SpriteBatch.End();
         }
 
         private void Window_ClientSizeChanged(object sender, EventArgs e)

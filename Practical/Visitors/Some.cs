@@ -8,26 +8,26 @@ namespace Practical
 {
     class Some<T> : Interfaces.Option<T>
     {
-        private T v;
+        private T Value;
 
         public Some(T value)
         {
-            this.v = value;
+            this.Value = value;
         }
 
-        public bool isNone()
+        public bool IsNone()
         {
             return false;
         }
 
-        public bool isSome()
+        public bool IsSome()
         {
             return true;
         }
 
-        public U Visit<U>(Func<U> OnNone, Func<T, U> OnSome)
+        public U Visit<U>(Func<U> onNone, Func<T, U> onSome)
         {
-            return OnSome(this.v);
+            return onSome(this.Value);
         }
     }
 }

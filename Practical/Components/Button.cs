@@ -10,21 +10,21 @@ namespace Practical
 {
     class Button : GUIElement
     {
-        private EmptyButton button;
-        private Label label;
-        private Action action;
+        private EmptyButton EmptyButton;
+        private Label Label;
+        private Action Action;
 
-        public Button(EmptyButton button, Label label, Action action) : base(button.position)
+        public Button(EmptyButton button, Label label, Action action) : base(button.Position)
         {
-            this.button = button;
-            this.label = label;
-            this.action = action;
+            this.EmptyButton = button;
+            this.Label = label;
+            this.Action = action;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            this.button.Draw(spriteBatch);
-            this.label.Draw(spriteBatch);
+            this.EmptyButton.Draw(spriteBatch);
+            this.Label.Draw(spriteBatch);
             base.Draw(spriteBatch);
         }
     }

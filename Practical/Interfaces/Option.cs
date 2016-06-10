@@ -8,8 +8,8 @@ namespace Practical.Interfaces
 {
     interface Option<T>
     {
-        U Visit<U>(Func<U> OnNone, Func<T,U> OnSome);
-        bool isSome();
-        bool isNone();
+        U Visit<U>(Func<U> onNone, Func<T,U> onSome);
+        bool IsSome();
+        bool IsNone();
     }
 }
