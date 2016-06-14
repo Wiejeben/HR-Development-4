@@ -18,7 +18,7 @@ namespace Practical
 
         public GUIElement Load()
         {
-            return Type.Visit(
+            return this.Type.Visit(
                 (emptyButton, label, action)    => new Button(emptyButton, label, action),
                 (position, texture)             => new EmptyButton(position, texture),
                 (position, label, font)         => new Label(position, label, font)
