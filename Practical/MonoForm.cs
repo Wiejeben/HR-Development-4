@@ -100,8 +100,8 @@ namespace Practical
 
         protected override void Update(GameTime gameTime)
         {
-            List<ElementType> elements = new List<ElementType>();
             this.Controls = new List<GUIElement>();
+            List<ElementType> elements = new List<ElementType>();
 
             foreach (Control control in this.WinForm.Controls)
             {
