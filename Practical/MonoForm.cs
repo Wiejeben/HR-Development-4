@@ -16,7 +16,7 @@ namespace Practical
         private readonly GraphicsDeviceManager Graphics;
         private readonly Form WinForm;
         private SpriteBatch SpriteBatch;
-        private string _Title = string.Empty;
+        private string _Title;
         private Size _Size;
         private Microsoft.Xna.Framework.Color BackColor;
         private Icon _WindowIcon;

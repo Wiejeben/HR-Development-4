@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,15 @@ namespace Practical
             this.Texture = texture;
             this.Position = position;
             this.Color = new Color(235, 235, 235);
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            // TODO: Implement onclick eventlistener
+            //Point mousePosition = Mouse.GetState().Position;
+            //Console.WriteLine(mousePosition);
+
+            base.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
