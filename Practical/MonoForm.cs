@@ -136,7 +136,7 @@ namespace Practical
 
             while (currentAdapter.IsSome())
             {
-                this.Controls.Add(currentAdapter.Visit(() => null, (el) => el));
+                this.Controls.Add(currentAdapter.Visit(() => null, value => value));
                 currentAdapter = adapter.GetNext();
             }
 

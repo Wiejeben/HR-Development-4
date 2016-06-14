@@ -33,7 +33,7 @@ namespace Practical
 
             return currentFactory.Visit<Option<GUIElement>>(
                 ()          => new None<GUIElement>(),
-                (elememt)   => new Some<GUIElement>(elememt.Load())
+                elememt     => new Some<GUIElement>(elememt.Load())
             );
         }
 
