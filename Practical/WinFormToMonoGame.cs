@@ -50,7 +50,7 @@ namespace Practical
         {
             if (!this.ChangeSizeFromWinForm)
                 this.WinForm.ClientSize = this.MonoForm.Size;
-            ChangeSizeFromWinForm = false;
+            this.ChangeSizeFromWinForm = false;
 
             SizeChanged?.Invoke(this, EventArgs.Empty);
         }
